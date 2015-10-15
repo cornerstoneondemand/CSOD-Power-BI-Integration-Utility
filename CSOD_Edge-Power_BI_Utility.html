@@ -1,0 +1,66 @@
+<HTML><HEAD>
+<title>Cornerstone Edge - Power BI Integration Utility</title>
+<style>
+html{font-family:Verdana,sans-serif;font-size:15px;line-height:1.5}
+body,h1,h2,h3,h4,h5,h6{font-family:"Segoe UI",Arial,sans-serif;font-weight:400;margin:10px 0}
+h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{font-weight:inherit}
+h1{font-size:36px}h2{font-size:30px}h3{font-size:24px}h4{font-size:20px}h5{font-size:18px}h6{font-size:16px}
+textarea,input{font-size:18px;font-family:"Segoe UI",Arial,sans-serif;font-weight:400;}
+#header {
+    background-color:#193059;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+#section {
+    background-color:#eeeeee;
+    text-align:center;
+    float:center;
+    padding:10px; 
+}
+#footer {
+    background-color:#43505A;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px; 
+}
+</style>
+<SCRIPT language=javascript>
+function Generate()
+{
+	if(feed_form.username.value.length > 0 && feed_form.url.value.length > 0 && feed_form.password.value.length > 0 && feed_form.token.value.length > 0) {
+		feed_form.result.value= "= OData.Feed(\"" + url.value + "\", null, [Headers=[#\"Authorization\" = \"Basic " + btoa(feed_form.username.value + ":" + feed_form.password.value) + "\",#\"x-csod-session-token\" = \"" + token.value + "\"]])";
+	} else {
+			alert("Please fill out all form fields.");
+	}
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+<div id="header">
+<h1>Cornerstone Edge</h1>
+</div>
+<div id="section">
+<h2>Power BI Integration Utility</h2>
+<p>Fill out the fields below and hit "Generate" to generate your query string to use in MS Power BI Desktop.</p>
+<FORM name=feed_form>
+<p><h4>USERNAME<br>
+<textarea autofocus id=username name=username rows=1 cols=40 placeholder="Enter your username (not user ID)"></textarea></h4></p>
+<p><h4>PASSWORD<br>
+<input type="password" id=password name=password size=39 placeholder="Enter your password"></h4></p>
+<p><h4>SESSION TOKEN<br>
+<textarea id=token name=token rows=1 cols=40 placeholder="ex.- '1nm3szxplvche'"></textarea></h4></p>
+<p><h4>ODATA URL<br>
+<textarea id=url name=url rows=3 cols=80 placeholder="ex.- 'http://<your-portal>/services/dwdata/User?$select=UserEmail,UserDivision,UserFirstName,UserLastName,UserLastAccess,UserID,UserPosition,UserManagerID'"></textarea></h4></p>
+<p><INPUT onclick="return Generate()" type=button value=Generate /></p>
+<br>
+<p><h3>RESULT<br>
+<textarea readonly onfocus="this.select();" onmouseup="return false;" id=result name=result rows=5 cols=80 /></textarea></h3></FORM>
+<i>Copy and paste Result into Power BI Desktop</i></p>
+<br>
+</div>
+<div id="footer">
+Cornerstone OnDemand | edge.csod.com
+</div>
+</BODY></HTML>
